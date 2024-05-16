@@ -1,29 +1,25 @@
 package com.sonastea.Ticketopia;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.env.Environment;
+import org.springframework.boot.test.web.server.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = TicketopiaApplication.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TicketopiaApplicationTest {
 
-    @Autowired
-    private Environment environment;
+    private final int port;
 
-    @Test
-    public void validatePort() {
-        // Set the 'local.server.port' property manually
-        when(environment.getProperty("local.server.port")).thenReturn("8080");
+    @LocalServerPort
+    private int randomPort;
 
-        TicketopiaApplication application = new TicketopiaApplication(environment);
-        int port = application.getPort();
-
-        assertEquals(8080, port);
+    public TicketopiaApplicationTest(@LocalServerPort Integer port) {
+        this.port = port;
     }
 
+    @Test
+    public void port() {
+        assertEquals(randomPort, port, "Application port should match the expected port");
+    }
 }
