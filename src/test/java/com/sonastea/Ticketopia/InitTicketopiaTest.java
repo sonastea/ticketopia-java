@@ -7,14 +7,14 @@ import org.springframework.boot.test.web.server.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TicketopiaApplicationTest {
+public class InitTicketopiaTest {
 
     private final int port;
 
     @LocalServerPort
     private int randomPort;
 
-    public TicketopiaApplicationTest(@LocalServerPort Integer port) {
+    public InitTicketopiaTest(@LocalServerPort Integer port) {
         this.port = port;
     }
 

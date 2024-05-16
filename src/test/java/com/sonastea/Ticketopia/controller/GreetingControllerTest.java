@@ -1,6 +1,7 @@
 package com.sonastea.Ticketopia.controller;
 
-import com.sonastea.Ticketopia.TicketopiaApplication;
+import com.sonastea.Ticketopia.InitTicketopia;
+import com.sonastea.Ticketopia.TestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest(classes = TicketopiaApplication.class)
+@SpringBootTest(classes = {InitTicketopia.class, TestConfig.class})
 @AutoConfigureMockMvc
 public class GreetingControllerTest {
 

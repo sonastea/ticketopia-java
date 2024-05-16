@@ -2,12 +2,14 @@ package com.sonastea.Ticketopia;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-public class TicketopiaApplication {
+@EnableScheduling
+public class InitTicketopia {
 
     public static void main(String[] args) {
-        SpringApplication.run(TicketopiaApplication.class, args);
+        SpringApplication.run(InitTicketopia.class, args);
     }
 
 }
