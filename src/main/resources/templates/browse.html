@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Browse Events</title>
+    <style>
+      .event-image {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>All New Events</h1>
+    <div th:if="${error}">
+      <p th:text="${error}"></p>
+    </div>
+    <div th:if="${eventsByName}">
+      <ul th:each="group : ${eventsByName}">
+        <li>
+          <h2 th:text="${group.key}"></h2>
+          <div th:each="event : ${group.value}">
+            <p>ID: <span th:text="${event.id}"></span></p>
+            <p>Date: <span th:text="${event.dates.start.localDate}"></span></p>
+            <p>Time: <span th:text="${event.dates.start.dateTime}"></span></p>
+            <th:block th:with="retinaLandscapeShown=false, retinaPortraitShown=false, tabletLandscapeLargeShown=false">
+              <!-- Iterate through images and display the appropriate one -->
+              <div th:each="image : ${event.images}">
+                <th:block th:if="${image.ratio == '16_9'}">
+                  <th:block
+                    th:if="${image.url.contains('RETINA_LANDSCAPE')} and !retinaPortraitShown and !tabletLandscapeLargeShown">
+                    <picture>
+                      <source th:srcset="${image.url}" media="(min-width: 1024px)">
+                      <img th:src="${image.url}" alt="Event Image">
+                    </picture>
+                    <!-- Set the flag to indicate that a RETINA_LANDSCAPE image has been shown -->
+                    <th:block th:with="retinaLandscapeShown=true"></th:block>
+                  </th:block>
+                  <th:block th:if="${image.url.contains('RETINA_PORTRAIT')} and !tabletLandscapeLargeShown">
+                    <picture>
+                      <source th:srcset="${image.url}" media="(max-width: 767px)">
+                      <img th:src="${image.url}" alt="Event Image">
+                    </picture>
+                    <!-- Set the flag to indicate that a RETINA_PORTRAIT image has been shown -->
+                    <th:block th:with="retinaPortraitShown=true"></th:block>
+                  </th:block>
+                  <th:block th:if="${image.url.contains('TABLET_LANDSCAPE_LARGE')}">
+                    <picture>
+                      <source th:srcset="${image.url}" media="(min-width: 1024px)">
+                      <img th:src="${image.url}" alt="Event Image">
+                    </picture>
+                    <!-- Set the flag to indicate that a TABLET_LANDSCAPE_LARGE image has been shown -->
+                    <th:block th:with="tabletLandscapeLargeShown=true"></th:block>
+                  </th:block>
+                </th:block>
+              </div>
+            </th:block>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

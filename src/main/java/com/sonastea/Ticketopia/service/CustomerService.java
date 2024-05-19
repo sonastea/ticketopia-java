@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CustomerService {
@@ -18,8 +19,7 @@ public class CustomerService {
     }
 
     public List<Customer> findAll() {
-        return (List<Customer>) repository.findAll();
+        return StreamSupport.stream(repository.findAll().spliterator(), false).toList();
     }
-
 
 }
